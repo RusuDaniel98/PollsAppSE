@@ -1,0 +1,24 @@
+{% extends "polls/base.html" %}
+{% load static %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'polls/style.css' %}">
+{% block body_block %}
+<div class="container">
+  <div class="jumbotron">
+    <h1>Welcome to the Polls app !</h1>
+    {% if user.is_authenticated %}
+        {% if latest_question_list %}
+        <ul>
+        {% for question in latest_question_list %}
+            <li><a href="{% url 'polls:detail' question.id %}">{{ question.question_text }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No polls are available.</p>
+    {% endif %}
+    {% else %}
+        <h2>Register or Login if you'd like to</h2>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
